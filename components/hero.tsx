@@ -4,10 +4,10 @@ import { SendIcon } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="h-full w-full flex flex-col justify-center items-center py-3 px-4 gap-7 mx-auto">
+    <section className="h-full w-full flex flex-col justify-center items-center pt-20 pb-4 px-4 gap-7 my-auto">
       <Badge />
       <div className="flex flex-col justify-center items-center max-w-3xl text-center">
-        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-wide lg:text-5xl">
+        <h1 className="scroll-m-20 text-3xl font-extrabold tracking-wide lg:text-5xl">
           Next-Level Websites for Forward-Thinking Brands
         </h1>
         <p className="leading-7 max-w-2xl [&:not(:first-child)]:mt-6">
