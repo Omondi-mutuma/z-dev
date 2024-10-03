@@ -7,7 +7,7 @@ const Features = () => {
   return (
     <section className="py-20 flex flex-col justify-center px-4 items-center w-full">
       <div className="flex flex-col w-full justify-between lg:flex-row">
-        <div className="px-8">
+        <div className="px-4 lg:px-8">
           <FeatureBarChart />
         </div>
         <div className="flex flex-col max-w-lg p-4">
@@ -80,7 +80,7 @@ const Features = () => {
             Request a quote
           </Button>
         </div>
-        <div className="px-8">
+        <div className="px-4 lg:px-8">
           <FeatureAreaChart />
         </div>
       </div>
