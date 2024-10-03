@@ -11,7 +11,7 @@ const Showcase = () => {
         as="div"
         className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
       >
-        <div className=" border rounded-3xl dark:bg-background bg-background  border-neutral-200 dark:border-emerald-800/30 p-4">
+        <div className=" border rounded-3xl dark:bg-background bg-background  border-neutral-200 dark:border-background p-4">
           <Compare
             firstImage="/problem-screenshot.png"
             secondImage="/solution.png"
