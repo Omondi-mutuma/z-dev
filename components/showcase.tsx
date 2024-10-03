@@ -1,6 +1,7 @@
 import React from "react";
 import { HoverBorderGradient } from "./ui/hover-border-gradient";
 import { Compare } from "./ui/compare";
+import Clients from "./ui/clients";
 
 const Showcase = () => {
   return (
@@ -10,20 +11,26 @@ const Showcase = () => {
         as="div"
         className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
       >
-        <div className="p-4 border rounded-3xl dark:bg-background bg-background  border-neutral-200 dark:border-emerald-800/30 px-4">
+        <div className=" border rounded-3xl dark:bg-background bg-background  border-neutral-200 dark:border-emerald-800/30 p-4">
           <Compare
-            firstImage="https://assets.aceternity.com/code-problem.png"
-            secondImage="https://assets.aceternity.com/code-solution.png"
+            firstImage="/problem-screenshot.png"
+            secondImage="/solution.png"
             firstImageClassName="object-cover object-left-top"
             secondImageClassname="object-cover object-left-top"
             className="h-[250px] w-[300px] md:h-[400px] md:w-[500px] lg:h-[400px] lg:w-[1000px]"
-            slideMode="hover"
+            slideMode="drag"
+            autoplay
           />
         </div>
       </HoverBorderGradient>
-      <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-10">
-        The best remote teams love Teki
-      </h4>
+      <div className="w-full text-center lg:h-[180px]">
+        <h4 className="scroll-m-20 text-lg font-normal tracking-tight mt-10">
+          The best brands love to stand out
+        </h4>
+        <div className="">
+          <Clients />
+        </div>
+      </div>
     </section>
   );
 };

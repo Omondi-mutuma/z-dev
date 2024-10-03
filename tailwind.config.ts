@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // tailwind.config.ts
 
-import type { Config, PluginAPI } from "tailwindcss";
+import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 import svgToDataUri from "mini-svg-data-uri";
-import colors from "tailwindcss/colors";
+// import colors from "tailwindcss/colors";
 
 /**
  * Helper function to flatten nested color palettes.
@@ -31,10 +34,8 @@ const flattenColorPalette = (
  *
  * This plugin iterates over the flattened color palette and creates corresponding
  * CSS variables in the `:root` selector.
- *
- * @param param0 - An object containing the `addBase` and `theme` functions from Tailwind.
  */
-const addVariablesForColors = ({ addBase, theme }: PluginAPI) => {
+const addVariablesForColors = plugin(function ({ addBase, theme }) {
   const allColors = flattenColorPalette(theme("colors"));
 
   const newVars: Record<string, string> = Object.fromEntries(
@@ -44,7 +45,42 @@ const addVariablesForColors = ({ addBase, theme }: PluginAPI) => {
   addBase({
     ":root": newVars,
   });
-};
+});
+
+/**
+ * Custom plugin to add background utilities.
+ * Adds classes like bg-grid, bg-grid-small, bg-dot with dynamic color values.
+ */
+const customBackgroundUtilities = plugin(function ({ matchUtilities, theme }) {
+  // Flatten the backgroundColor palette
+  const flatColors = flattenColorPalette(theme("backgroundColor"));
+
+  // Define custom background utilities with dynamic colors
+  matchUtilities(
+    {
+      "bg-grid": (value: string) => ({
+        backgroundImage: `url("${svgToDataUri(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
+        )}")`,
+      }),
+      "bg-grid-small": (value: string) => ({
+        backgroundImage: `url("${svgToDataUri(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
+        )}")`,
+      }),
+      "bg-dot": (value: string) => ({
+        backgroundImage: `url("${svgToDataUri(
+          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`
+        )}")`,
+      }),
+    },
+    {
+      // Use the flattened backgroundColor palette
+      values: flatColors,
+      type: "color",
+    }
+  );
+});
 
 /**
  * Tailwind CSS Configuration
@@ -137,40 +173,8 @@ const config: Config = {
     // Plugin to add CSS variables for colors
     addVariablesForColors,
 
-    /**
-     * Custom plugin to add background utilities.
-     * Adds classes like bg-grid, bg-grid-small, bg-dot with dynamic color values.
-     */
-    function ({ matchUtilities, theme }: PluginAPI) {
-      // Flatten the backgroundColor palette
-      const flatColors = flattenColorPalette(theme("backgroundColor"));
-
-      // Define custom background utilities with dynamic colors
-      matchUtilities(
-        {
-          "bg-grid": (value: string) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
-            )}")`,
-          }),
-          "bg-grid-small": (value: string) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="8" height="8" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
-            )}")`,
-          }),
-          "bg-dot": (value: string) => ({
-            backgroundImage: `url("${svgToDataUri(
-              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none"><circle fill="${value}" id="pattern-circle" cx="10" cy="10" r="1.6257413380501518"></circle></svg>`
-            )}")`,
-          }),
-        },
-        {
-          // Use the flattened backgroundColor palette
-          values: flatColors,
-          type: "color",
-        }
-      );
-    },
+    // Custom plugin to add background utilities
+    customBackgroundUtilities,
   ],
 };
 
