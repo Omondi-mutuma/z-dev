@@ -19,7 +19,6 @@ const Showcase = () => {
             secondImageClassname="object-cover object-left-top"
             className="h-[250px] w-[300px] md:h-[400px] md:w-[500px] lg:h-[400px] lg:w-[1000px]"
             slideMode="drag"
-            autoplay
           />
         </div>
       </HoverBorderGradient>
