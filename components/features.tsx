@@ -6,7 +6,7 @@ import { FeatureAreaChart } from "./ui/areaChart";
 const Features = () => {
   return (
     <section className="py-20 flex flex-col justify-center px-4 items-center w-full">
-      <div className="flex w-full justify-between">
+      <div className="flex flex-col w-full justify-between lg:flex-row">
         <div className="px-8">
           <FeatureBarChart />
         </div>
@@ -45,7 +45,7 @@ const Features = () => {
           </Button>
         </div>
       </div>
-      <div className="flex w-full justify-between mt-24">
+      <div className="flex flex-col w-full justify-between mt-24 lg:flex-row">
         <div className="flex flex-col w-full p-4">
           <svg
             width="42"
